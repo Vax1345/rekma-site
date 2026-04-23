@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מקורות ומסמכים – פרשת נחשון וקסמן</title>
+    <link rel="icon" href="media/thread-icon.svg" type="image/x-icon">
+ <link rel="stylesheet" href="./style.css">
+
+  <meta name="description" content=
+<"קטלוג מקורות לפי קטגוריות ותגיות: תיעוד, משפחה, תחקירים, לקחים, 7 באו
+<div class="card">
+    <h1>מקורות ומסמכים</h1>
+    <p class="small">
+      כל טענה חזקה באתר אמורה לקבל מקור. כאן ניתן לסנן לפי קטגוריה/תגית.
+      קובץ הנתונים: <span class="badge">data/sources.json</span>
+    </p>
+  </div>
+
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand"><a href="home.html">פרשת נחשון וקסמן</a></div>
+    <nav class="menu">
+      <a href="kidnapping.html">החטיפה</a>
+      <a href="rescue.html">ניסיון החילוץ</a>
+      <a href="lessons.html">לקחים</a>
+      <a class="active" href="sources.html">מקורות</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  
+  <div class="card">
+    <h2>סינון</h2>
+    <div class="grid">
+      <div>
+        <label class="small">חיפוש חופשי</label>
+        <input id="q" placeholder="הקלד/י מילה: וקסמן / דלת / אימ\"מ / ברק..." />
+      </div>
+      <div>
+        <label class="small">קטגוריה</label>
+        <select id="cat" title="בחר קטגוריה לסינון">
+          <option value="">הכול</option>
+          <option value="תיעוד">תיעוד</option>
+          <option value="משפחה">משפחה</option>
+          <option value="תחקיר">תחקיר</option>
+          <option value="לקחים/שיטה">לקחים/שיטה</option>
+          <option value="7.10">7.10</option>
+          <option value="רקע">רקע</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn" id="apply">סנן</button>
+      <button class="btn secondary" id="reset">נקה</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>רשימת מקורות</h2>
+    <div id="list" class="grid" style="grid-template-columns:1fr;"></div>
+    <p id="status" class="small"></p>
+  </div>
+
+</main>
+<script src="sources.js"></script>
+</body>
+</html>

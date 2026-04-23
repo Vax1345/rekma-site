@@ -1,0 +1,215 @@
+l
+<section class="gb">
+  <h2>ספר אורחים</h2>
+  <p class="gb-note">הודעות מתפרסמות מיידית. אנא הימנעו מפרטים מזהים/רגישים.</p>
+
+  <form id="gbForm" class="gb-form">
+    <label>
+      שם (אופציונלי)
+      <input id="gbName" type="text" maxlength="40" placeholder="למשל: יוסי">
+    </label>
+
+    <label>
+      הודעה
+      <textarea id="gbMessage" rows="4" maxlength="800" required
+        placeholder="כתבו כמה מילים…"></textarea>
+    </label>
+
+    <button type="submit" class="gb-btn">פרסם</button>
+    <p id="gbStatus" class="gb-status" aria-live="polite"></p>
+  </form>
+
+  <hr class="gb-sep">
+
+  <div id="gbList" class="gb-list" aria-label="רשימת הודעות"></div>
+</section>
+```
+
+## CSS (מינימלי)
+```css
+.gb { max-width: 820px; margin: 30px auto; padding: 0 16px; color: #fff; }
+.gb-note{ color: rgba(255,255,255,.85); line-height:1.6; }
+.gb-form{ display:grid; gap:12px; margin-top:14px; }
+.gb-form input, .gb-form textarea{
+  width:100%; box-sizing:border-box;
+  border-radius:12px; border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color:#fff; padding:10px 12px; outline:none;
+}
+.gb-form input:focus, .gb-form textarea:focus{ border-color: rgba(255,216,107,.6); }
+.gb-btn{
+  width:fit-content; padding:10px 14px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.2);
+  background: rgba(17,48,90,.65); color:#fff; cursor:pointer;
+}
+.gb-btn:hover{ background: rgba(17,48,90,.8); }
+.gb-status{ min-height:1.2em; color:#ffd86b; }
+.gb-sep{ border:0; border-top:1px solid rgba(255,255,255,.16); margin:18px 0; }
+
+.gb-list{ display:grid; gap:12px; }
+.gb-item{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius:14px;
+  padding:12px 14px;
+}
+.gb-head{ display:flex; gap:10px; align-items:baseline; justify-content:space-between; }
+.gb-name{ font-weight:800; color:#ffd86b; }
+.gb-time{ color: rgba(255,255,255,.7); font-size:.9rem; }
+.gb-msg{ white-space:pre-wrap; line-height:1.7; margin:10px 0 0; }
+```
+
+## JS (Firebase v10, מודולרי)
+שים לפני `</body>`:
+
+```html
+<script type="module">
+  // 1) ייבוא Firebase מה-CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, query, where, orderBy, limit,
+    onSnapshot, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+  // 2) קונפיג — להחליף לערכים שלך
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const form = document.getElementById('gbForm');
+  const nameEl = document.getElementById('gbName');
+  const msgEl  = document.getElementById('gbMessage');
+  const statusEl = document.getElementById('gbStatus');
+  const listEl = document.getElementById('gbList');
+
+  // Rate limit קליינט-סייד (לא מושלם, אבל מצמצם הצפות)
+  const COOLDOWN_MS = 45_000; // 45 שניות בין פרסומים
+  const LAST_KEY = "gb_last_post";
+
+  function canPostNow() {
+    const last = Number(localStorage.getItem(LAST_KEY) || 0);
+    return Date.now() - last > COOLDOWN_MS;
+  }
+
+  function markPosted() {
+    localStorage.setItem(LAST_KEY, String(Date.now()));
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  function formatTime(ts) {
+    if (!ts) return "";
+    const d = ts.toDate();
+    return d.toLocaleString('he-IL', { dateStyle: 'medium', timeStyle: 'short' });
+  }
+
+  // 3) שליחת הודעה
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+
+    const name = (nameEl.value || "").trim().slice(0,40);
+    const message = (msgEl.value || "").trim().slice(0,800);
+
+    if (!message) {
+      statusEl.textContent = "נא לכתוב הודעה.";
+      return;
+    }
+    if (!canPostNow()) {
+      statusEl.textContent = "נא להמתין מעט לפני פרסום נוסף.";
+      return;
+    }
+
+    try {
+      statusEl.textContent = "מפרסם…";
+      await addDoc(collection(db, "guestbook"), {
+        name: name || "אורח/ת",
+        message,
+        createdAt: serverTimestamp(),
+        page: "guestbook",
+        visible: true,
+        removed: false
+      });
+      markPosted();
+      msgEl.value = "";
+      statusEl.textContent = "פורסם.";
+      setTimeout(() => statusEl.textContent = "", 2500);
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "שגיאה בפרסום. נסה שוב.";
+    }
+  });
+
+  // 4) הצגה “חיה” של ההודעות המאושרות
+  const q = query(
+    collection(db, "guestbook"),
+    where("visible", "==", true),
+    where("removed", "==", false),
+    orderBy("createdAt", "desc"),
+    limit(200)
+  );
+
+  onSnapshot(q, (snap) => {
+    const items = [];
+    snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+
+    listEl.innerHTML = items.map(it => `
+      <div class="gb-item">
+        <div class="gb-head">
+          <div class="gb-name">${escapeHtml(it.name || "אורח/ת")}</div>
+          <div class="gb-time">${it.createdAt ? formatTime(it.createdAt) : ""}</div>
+        </div>
+        <div class="gb-msg">${escapeHtml(it.message || "")}</div>
+      </div>
+    `).join("") || "<p style='color:rgba(255,255,255,.85)'>אין עדיין הודעות.</p>";
+  });
+</script>
+```
+
+---
+
+# 4) איפה משיגים את firebaseConfig
+Firebase Console → Project settings → General → Your apps → “Web app” → copy config.  
+שים לב: `apiKey` לא סוד. הסוד האמיתי הוא Rules.
+
+---
+
+# 5) Firestore Security Rules (בסיסי + בטוח יחסית)
+Firebase Console → Firestore → Rules:
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /guestbook/{docId} {
+
+      // קריאה: רק של הודעות שלא הוסרו ושמוגדרות visible
+      allow read: if resource.data.visible == true
+                  && resource.data.removed == false;
+
+      // כתיבה: כל אחד יכול ליצור מסמך חדש, אבל רק עם שדות מסוימים
+      allow create: if request.resource.data.keys().hasOnly([
+                      "name","message","createdAt","page","visible","removed"
+                    ])
+                    && request.resource.data.visible == true
+                    && request.resource.data.removed == false
+                    && request.resource.data.page == "guestbook"
+                    && request.resource.data.name is string
+                    && request.resource.data.message is string
+                    && request.resource.data.name.size() <= 40
+                    && request.resource.data.message.size() <= 800;
+
+      // לא מאפשרים עריכה/מחיקה לציבור
+      allow update, delete: if false;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "R1",
+    "title": "כאן 11 – המתח והסוף הטרגי: 25 שנה לחטיפת נחשון וקסמן",
+    "type": "כתבה",
+    "date": "",
+    "url": "https://www.kan.org.il/content/kan-news/local/310741/",
+    "tags": ["ציר-זמן", "קלטת", "הד-ציבורי"],
+    "category": "תיעוד",
+    "relevant_pages": ["kidnapping.html"],
+    "summary": "סקירה לציון 25 שנה: ציר זמן, ההד הציבורי ותיאור כללי של האירועים.",
+    "reliability": "B"
+  },
+  {
+    "id": "R2",
+    "title": "ערוץ 13 – מהחטיפה המטלטלת ועד החילוץ שכשל",
+    "type": "כתבה",
+    "date": "",
+    "url": "https://13tv.co.il/item/news/politics/security/nahshon_vaksman-932512/",
+    "tags": ["חילוץ", "פריצה", "סיכום"],
+    "category": "תיעוד",
+    "relevant_pages": ["kidnapping.html", "rescue.html"],
+    "summary": "סקירה חדשותית של ציר האירועים מהחטיפה ועד ניסיון החילוץ ותוצאותיו.",
+    "reliability": "B"
+  },
+  {
+    "id": "R3",
+    "title": "ויקיפדיה – חטיפת נחשון וקסמן (רקע בלבד)",
+    "type": "רקע",
+    "date": "",
+    "url": "https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%A4%D7%AA_%D7%A0%D7%97%D7%A9%D7%95%D7%9F_%D7%95%D7%A7%D7%A1%D7%9E%D7%9F",
+    "tags": ["ציר-זמן"],
+    "category": "רקע",
+    "relevant_pages": ["kidnapping.html", "rescue.html", "lessons.html"],
+    "summary": "תקציר אנציקלופדי והפניות. לא לשימוש כראיה לטענות שנויות במחלוקת.",
+    "reliability": "A-"
+  }
+]

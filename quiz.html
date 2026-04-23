@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+  <html lang="he" dir="rtl"><head><meta charset="UTF-8"></head>script src="/menu.js"></script>
+<head>
+  <link rel="stylesheet" href="/style.css">
+  <title>חידון - רקמה אנושית אחת</title>
+  <link rel="stylesheet" href="/style.css">
+
+  li  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="חידון אינטראקטיבי על פרשת נחשון וקסמן וניר פורז ז״ל.">
+
+
+  <link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/quiz.css">
+  </head>
+  
+  <body>
+    <!-- אם יש לך header/תפריט המבורגר קבוע מהאתר, הוא צריך להיות כאן (לא חובה לחידון עצמו) -->
+  
+    <div class="container">
+      <h5 class="page-title">
+        שאלונים אמריקאיים על פרטי הפרשה. כל שאלון 25 שאלות
+      </h5>
+  
+      <div class="quiz-container">
+        <div class="level-select">
+          <button type="button" onclick="startQuiz('easy')">גרסה קלה</button>
+          <button type="button" onclick="startQuiz('advanced')">גרסה מתקדמת</button>
+        </div>
+  
+        <div id="quiz" style="display:none;">
+          <div class="question" id="question"></div>
+          <div class="options" id="options"></div>
+  
+          <div class="action-row">
+            <button type="button" class="primary-btn" onclick="submitAnswer()">שלח תשובה</button>
+          </div>
+  
+          <div class="feedback" id="feedback"></div>
+          <div class="score" id="score"></div>
+        </div>
+      </div>
+  
+      <div class="next-page-link">
+        <a href="visitors.html">לדף הבא: דף מבקרים</a>
+      </div>
+    </div>
+  
+    <div class="footer">
+      <p>© 2025 רקמה אנושית אחת | <a href="mailto:tzachi1976@yahoo.com">צור קשר</a></p>
+    </div>
+  
+    <audio id="correct-sound" src="assests/correct.mp3" 
+    <audio id="wrong-sound" src="assets/wrong.mp3"   
+ <audio id="background-music" src=assets/background.mp3"
+  
+    <script>
+      function toggleMenu() {
+        const m = document.getElementById('menu');
+        if (m) m.classList.toggle('active');
+      }
+      
+         const easyQuestions = [
+      { question: "מה היה שמו של החייל שנחטף?", options: ["יוסי בן שושן", "נחשון וקסמן", "דניאל תמרי", "איתמר בן צבי"], answer: 1, explanation: "תשובה נכונה: ב" },
+        { question: "באיזו מדינה התרחש האירוע?", options: ["לבנון", "סוריה", "ישראל", "ירדן"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מי חטף את נחשון?", options: ["חיזבאללה", "אנשי חמאס", "דאעש", "משטרת עזה"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "איפה נולד וגדל נחשון?", options: ["תל אביב", "חיפה", "ירושלים", "בית שמש"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מה היה תפקידו בצה\"ל?", options: ["טכנאי קשר", "נהג טנק", "לוחם עורב בגולני", "קצין חינוך"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "באיזה יום התרחש ניסיון החילוץ?", options: ["יום ראשון", "יום רביעי", "יום שישי", "שבת"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מי היה ראש הממשלה בזמן האירוע?", options: ["בנימין נתניהו", "אהוד ברק", "אריאל שרון", "יצחק רבין"], answer: 3, explanation: "תשובה נכונה: ד" },
+      { question: "איך ניסו החוטפים לשכנע את נחשון לעלות לרכב?", options: ["הציגו תעודות שוטר", "לבשו מדי צה\"ל", "התחפשו לדתיים", "אמרו לו שהם חברים של המשפחה"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "איך ידעו שנחשון נחטף?", options: ["התקשר בעצמו", "שלח הודעה מהשבוי", "הוא לא חזר הביתה ולא יצר קשר", "שכן ראה את החטיפה"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "איזה רכב שימש לחטיפה?", options: ["טנדר לבן", "מאזדה שחורה", "פולקסווגן בורדו", "סובארו כחולה"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "איזו יחידה ניסתה לחלץ את נחשון?", options: ["יחידת דובדבן", "סיירת מטכ\"ל", "גבעתי", "יחידת כלבנים"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "מה קרה לנחשון במהלך החילוץ?", options: ["הוא חולץ בשלום", "הוא נפצע קל", "הוא הצליח לברוח", "הוא נהרג"], answer: 3, explanation: "תשובה נכונה: ד" },
+      { question: "מה הרגישו רבים בישראל בזמן החטיפה?", options: ["אדישות", "שמחה", "לחץ ודאגה", "בלבול פוליטי בלבד"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "איך נחשון הופיע בקלטת שפרסמה החמאס?", options: ["רוקד ושמח", "מבקש על חייו", "צוחק עם החוטפים", "מדקלם שיר"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "מי ניסה לתווך עם החמאס?", options: ["אהוד ברק", "יצחק רבין", "הרב מנחם פרומן", "בנימין נתניהו"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מה דרשו החוטפים בתמורה לשחרורו?", options: ["כסף", "כלי נשק", "שחרור אסירים", "הפסקת אש"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מי היה בין החוטפים?", options: ["אזרחים לבנונים", "תושבי מזרח ירושלים", "פליטים מסוריה", "אזרחים ישראלים ממוצא רוסי"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "מה קרה ללוחם ליאור לוטן?", options: ["הוא נהרג", "הוא נפצע", "הוא נעלם", "הוא ערק"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "למה התקשו למצוא את נחשון?", options: ["כי המידע היה סודי", "כי החוטפים שיקרו על מיקומו", "כי הוא היה בעזה", "כי לא חיפשו מספיק"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "מה עשו הוריו של נחשון בזמן החטיפה?", options: ["פנו לתקשורת ולחיפושים", "נסעו לחו\"ל", "ביקשו מהצבא להמתין", "סירבו לקבל עזרה"], answer: 0, explanation: "תשובה נכונה: א" },
+      { question: "איך הגיב יצחק רבין כשהמבצע נכשל?", options: ["שמר על שתיקה וצער", "כעס על הצבא", "טען שלא ידע", "נסע לחו\"ל"], answer: 0, explanation: "תשובה נכונה: א" },
+      { question: "מה היה המסר הציבורי לאחר מותו של נחשון?", options: ["הפסקת מו\"מ עם ערפאת", "תמיכה במשפחה ואחדות", "הפגנות נגד רבין", "חזרה לאינתיפאדה"], answer: 1, explanation: "תשובה נכונה: ב" },
+      { question: "מה הייתה אחת המסקנות מהאירוע?", options: ["לא נוסעים טרמפים", "אין לסמוך על ערבים", "יש לשפר את ההתמודדות עם חטיפות", "יש להקים חומה מידית"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מה הרגישה משפחת וקסמן לאחר האירוע?", options: ["סיפוק מהתגובה", "הקלה מסוימת", "כאב עמוק ואובדן", "חוסר אמון במדינה בלבד"], answer: 2, explanation: "תשובה נכונה: ג" },
+      { question: "מה נוכל ללמוד מהפרשה?", options: ["להיזהר בחו\"ל", "שחיי אדם הם ערך עליון", "לא להתנדב לקרבי", "שהתקשורת מנפחת דברים"], answer: 1, explanation: "תשובה נכונה: ב" }
+    ]
+
+    // (השארתי את advancedQuestions אצלך — פשוט תדביק כאן את המערך המלא שלך כמו שהוא)
+    const advancedQuestions = [
+      { question: "מהו המיקום שבו הוחזק נחשון וקסמן בזמן החטיפה?", options: ["בית נטוש בעזה", "בית מבודד בביר נבאלה", "מחסן תעשייתי ברמאללה", "מערה באזור חברון"], answer: 1, explanation: "נחשון הוחזק בבית אבן מבודד בביר נבאלה..." }
+   const advancedQuestions = [
+  {
+    question: "מהו המיקום שבו הוחזק נחשון וקסמן בזמן החטיפה?",
+    options: ["בית נטוש בעזה", "בית מבודד בביר נבאלה", "מחסן תעשייתי ברמאללה", "מערה באזור חברון"],
+    answer: 1,
+    explanation: "נחשון הוחזק בבית אבן מבודד בביר נבאלה, עיירה פלסטינית מצפון לירושלים שהוסוותה כאילו הוא נמצא בעזה."
+  },
+  {
+    question: "מי מהבאים היה אחראי לקיום המו\"מ עם משפחת וקסמן?",
+    options: ["יוסי גינוסר", "דני יתום", "יגאל ברסלר", "שמעון פרס"],
+    answer: 2,
+    explanation: "רבין מינה את יגאל ברסלר לאיש הקשר היחיד עם משפחת וקסמן, מתוך החלטה להימנע מלחץ ישיר על הממשלה."
+  },
+  {
+    question: "כיצד הוטעה המודיעין הישראלי באשר למיקום וקסמן?",
+    options: ["קלטות החמאס נשלחו מכתובת בעזה", "שיחת טלפון מבלבלת עם ערפאת", "שימוש בהסוואה טכנולוגית", "טענה כוזבת מצד צה\"ל"],
+    answer: 0,
+    explanation: "כל ההודעות והקלטות ששודרו על ידי החמאס הגיעו מעזה, ולכן מערך המודיעין התמקד באזור זה בטעות."
+  },
+  {
+    question: "מה היה תפקידו של זכריה נג'ים בפרשה?",
+    options: ["נהג הרכב החוטף", "מתווך בין המשפחה לחמאס", "הסייען שאירגן את בית המסתור", "החוטף הראשי"],
+    answer: 2,
+    explanation: "זכריה נג'ים תושב מזרח ירושלים, סיפק את הבית שבו הוחזק נחשון ושימש כסייען לחוליית החוטפים."
+  },
+  {
+    question: "כיצד פוענח בסופו של דבר מיקומו האמיתי של נחשון?",
+    options: ["בעקבות טלפון אנונימי", "בזכות הצעה של קצין שב\"כ לבדוק סוכנויות רכב", "מהודאה של ערפאת", "באמצעות חקירת עדי ראייה"],
+    answer: 1,
+    explanation: "קצין הציע לבדוק את רשומות השכרת הרכב בירושלים, מה שהוביל לאיתור רכב הטרנספורטר ולזיהוי אחד מהחוטפים."
+  },
+  {
+    question: "מה היה סוג הרכב ששימש לחטיפת נחשון וקסמן?",
+    options: ["טנדר ניסאן לבן", "סובארו כחולה", "פולקסווגן טרנספורטר בורדו", "מאזדה כסופה"],
+    answer: 2,
+    explanation: "החוליה שכרה פולקסווגן טרנספורטר בצבע בורדו בירושלים, בו עלה נחשון לטרמפ שגבה את חייו."
+  },
+  {
+    question: "כיצד התחזתה חוליית החוטפים כדי לשכנע את נחשון לעלות לרכב?",
+    options: ["לבשו מדים של שוטרי מג\"ב", "התחפשו לרופאים יהודים", "התחפשו לדתיים, כולל כיפות וציציות", "הציגו תעודות צה\"ל מזויפות"],
+    answer: 2,
+    explanation: "החוטפים לבשו כיפות, ציציות וחולצות מכופתרות על מנת להיראות כאזרחים דתיים וכך לשכנע את נחשון לעלות לטרמפ."
+  },
+  {
+    question: "מהו המועד שבו התרחש ניסיון החילוץ של נחשון?",
+    options: ["יום שני בצהריים", "יום חמישי בלילה", "יום שישי בשעה 19:45", "מוצאי שבת"],
+    answer: 2,
+    explanation: "הפעולה הצבאית לשחרור נחשון החלה בשעה 19:45 ביום שישי, שעה ורבע לפני סיום האולטימטום."
+  },
+  {
+    question: "איזו יחידה הובילה את מבצע החילוץ?",
+    options: ["הימ\"מ", "סיירת מטכ\"ל", "יחידת שלדג", "דובדבן"],
+    answer: 1,
+    explanation: "למרות שהימ\"מ הגיעה ראשונה לשטח, המשימה הועברה לסיירת מטכ\"ל, יחידת העילית של צה\"ל ללחימה בטרור."
+  },
+  {
+    question: "מה היה גורלו של נחשון וקסמן בעת מבצע החילוץ?",
+    options: ["חולץ בהצלחה אך נפצע", "הוצא חי אך מת לאחר מכן מפצעיו", "נהרג במהלך קרב היריות בתוך החדר", "הועבר לעזה ונמצא רק שבועות לאחר מכן"],
+    answer: 2,
+    explanation: "נחשון נהרג במהלך קרב יריות שהתנהל בין הכוח הפורץ לשני החוטפים שנותרו איתו בחדר נעול."
+  },
+  {
+    question: "מי היה הלוחם הבכיר שנפצע במהלך מבצע החילוץ?",
+    options: ["ליאור לוטן", "עמוס גלעד", "גיורא איילנד", "יואב גלנט"],
+    answer: 0,
+    explanation: "ליאור לוטן, קצין בסיירת מטכ\"ל, נכנס ראשון לקרב יריות עם החוטפים ונפצע במהלך הפעולה."
+  },
+  {
+    question: "כיצד הגיב יצחק רבין כששמע על כישלון החילוץ?",
+    options: ["האשים את ערפאת בפומבי", "קרא מיד לוועדת חקירה", "הביע תסכול ודמם מהבעת פניו", "טען כי לא הייתה דרך אחרת"],
+    answer: 2,
+    explanation: "לפי עדויות, פניו של רבין נפלו מיד כשהבין שנחשון נהרג. הדבר ניכר בבירור במתח ובשתיקה שנפלה סביבו."
+  },
+  {
+    question: "איזו דמות פלסטינית בכירה ביקשה ישראל לשחרר בעסקת החילוף?",
+    options: ["מוחמד דף", "ג'יהאד ירמור", "אחמד יאסין", "חאלד משעל"],
+    answer: 2,
+    explanation: "הדרישה המרכזית של החוטפים הייתה שחרורו של השייח אחמד יאסין, מנהיג חמאס הרוחני שהיה בכלא בישראל."
+  },
+  {
+    question: "מדוע סירב רבין לשחרר את אחמד יאסין?",
+    options: ["חשש מביקורת ציבורית", "היה בטוח שנחשון כלל לא נמצא בעזה", "האמין שאין לנהל מו\"מ עם טרור", "קיבל התחייבות מערפאת שישוחרר"],
+    answer: 2,
+    explanation: "רבין דבק בעקרון שלא מנהלים מו\"מ עם חוטפים, גם אם המחיר הוא חיי חייל, כדי לא לעודד חטיפות עתידיות."
+  },
+  {
+    question: "כיצד משפחת וקסמן ניסתה לפעול במהלך ימי החטיפה?",
+    options: ["דרשה שחרור אסירים מיידי", "ניסתה ליצור קשר עם החוטפים בעצמה", "שלחה נציג לאו\"ם", "הפעילה לחץ תקשורתי בלבד"],
+    answer: 1,
+    explanation: "המשפחה ניסתה באמצעים פרטיים ליצור קשר עם החוטפים ואף הוצעו סכומים תמורת שחרורו, מתוך תקווה להצילו."
+  },
+  {
+    question: "כיצד ניסתה ממשלת ישראל לשכנע את החוטפים לא להרוג את נחשון?",
+    options: ["באמצעות מסר של ערפאת", "בפנייה ישירה בערבית בטלוויזיה", "בפנייתו של אחמד יאסין מהכלא", "בהפגנת כוח צבאי סמוך לבית"],
+    answer: 2,
+    explanation: "אחמד יאסין העביר מסר פומבי מהכלא בו קרא לשחרר את נחשון בשל מצוות הדת – אך לא ברור אם זה השפיע."
+  },
+  {
+    question: "איזו דמות ישראלית טענה לאחר מכן: \"אני אשם שלא לחצתי מספיק\"?",
+    options: ["יצחק רבין", "האם אסתר וקסמן", "אחיו של נחשון", "אהוד ברק"],
+    answer: 1,
+    explanation: "אסתר, אמו של נחשון, הביעה חרטה אישית על כך שלא הפעילה יותר לחץ ציבורי או פוליטי במהלך החטיפה."
+  },
+  {
+    question: "איזו טעות מערכתית נחשפה בעקבות כישלון החילוץ?",
+    options: ["ליקויים בטכנולוגיית איכון", "הסתמכות עיוורת על דיסאינפורמציה", "חוסר תיאום בין שב\"כ לצה\"ל", "העברת מידע לחמאס בטעות"],
+    answer: 1,
+    explanation: "מערכת הביטחון נשבתה לאשליה שנחשון מוחזק בעזה – למרות היעדר ראיות פיזיות, בשל דיסאינפורמציה מכוונת."
+  },
+  {
+    question: "כיצד תואר נחשון וקסמן במסמך מבחינת אופיו?",
+    options: ["אדם חשדן ועצור", "לוחם אגרסיבי ומנוסה", "בחור נאיבי עם שמחת חיים", "מפקד מחלקה קשוח"],
+    answer: 2,
+    explanation: "תיאורים במסמך מדברים על נחשון כבחור צעיר, נאיבי, שמח, עם לב פתוח ואמונה בתום הלב של אנשים."
+  },
+  {
+    question: "מה גרם לרבים בישראל לחוש שותפות אישית באירוע?",
+    options: ["הדיווחים התקשורתיים המרובים", "העובדה שהחייל לא היה מוכר", "היותו של נחשון בודד וללא משפחה", "האווירה סביב הסכמי אוסלו והתקווה"],
+    answer: 3,
+    explanation: "התקופה התאפיינה באופטימיות של הסכמי אוסלו, והחטיפה נתפסה כסטירת לחי כואבת למהלך השלום ולתחושת הביטחון."
+  },
+  {
+    question: "איזו פעולה ישראלית קדמה לחטיפה וייתכן שהשפיעה על ההחלטה לחטוף חייל?",
+    options: ["הפצצת הכור בעיראק", "מבצע החטיפה של מוסטפה דיראני", "פינוי ימית בסיני", "חתימת הסכם השלום עם ירדן"],
+    answer: 1,
+    explanation: "כמה חודשים לפני כן חטפה סיירת מטכ\"ל את דיראני מלבנון לצורכי מיקוח – ייתכן שזה שימש השראה לחמאס."
+  },
+  {
+    question: "מה היה גורלו של ניר פורז במבצע?",
+    options: ["חולץ בהצלחה", "נהרג בקרב", "נפצע קשה", "הציל את נחשון"],
+    answer: 1,
+    explanation: "סרן ניר פורז, מפקד הכוח הפורץ, נהרג בקרב היריות עם החוטפים."
+  },
+  {
+    question: "מה מבטא האירוע הזה בעיני רבים בנוגע לאתגרי ביטחון בישראל?",
+    options: ["צורך בהסברה עולמית", "הצורך לחזק את מערכות המודיעין", "המציאות הבלתי נמנעת של טרור חטיפות", "חשיבות פיתוח טכנולוגי מתקדם"],
+    answer: 2,
+    explanation: "האירוע המחיש את השבריריות של הביטחון האישי, והבליט את הטרור ככלי אסטרטגי מתמשך מול ישראל."
+  },
+  {
+    question: "מה היו התחושות בקרב מפקדי הצבא לאחר הפעולה?",
+    options: ["הקלה ושביעות רצון", "כעס כלפי ממשלת ישראל", "תחושת כישלון ואחריות לאומית", "אדישות וביטחון עצמי"],
+    answer: 2,
+    explanation: "מפקדים בכירים הביעו תחושת כישלון עמוקה, ואף הודו שהגבורה הפכה לכלי ראשון בתכנון ולא אמצעי אחרון."
+  },
+  {
+    question: "כיצד ניסה הרב מנחם פרומן להתערב?",
+    options: ["פנה לבית המשפט", "ניסה לתווך עם חמאס", "הפגין נגד הממשלה", "כתב מאמר בעיתון"],
+    answer: 1,
+    explanation: "הרב פרומן פעל דרך קשרים אישיים כדי לבדוק אפשרות לעסקת חילופין עם החמאס, אך ממשלת ישראל לא נענתה."
+  }
+];
+
+    ];
+
+ 
+let currentQuestions = [];
+let currentQuestion = 0;
+let score = 0;
+
+window.onload = function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const level = urlParams.get('level');
+  if (level === 'advanced') {
+    startQuiz('advanced');
+  } else if (level === 'easy') {
+    startQuiz('easy');
+  }
+};
+
+function startQuiz(level) {
+  currentQuestions = level === 'easy' ? easyQuestions : advancedQuestions;
+  currentQuestion = 0;
+  score = 0;
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('background-music').play().catch(error => console.log('אוטופליי חסום:', error));
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = currentQuestions[currentQuestion];
+  document.getElementById('question').innerHTML = q.question + ` (שאלה ${currentQuestion + 1} מתוך ${currentQuestions.length})`;
+  const options = document.getElementById('options');
+  options.innerHTML = '';
+  q.options.forEach((option, index) => {
+    const label = document.createElement('label');
+    label.innerHTML = `<input type="radio" name="answer" value="${index}"> ${option}`;
+    options.appendChild(label);
+  });
+  document.getElementById('feedback').innerHTML = '';
+}
+
+function submitAnswer() {
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if (selected) {
+    const answer = parseInt(selected.value);
+    const q = currentQuestions[currentQuestion];
+    if (answer === q.answer) {
+      score++;
+      document.getElementById('correct-sound').play();
+      document.getElementById('feedback').innerHTML = 'נכון! ' + q.explanation;
+      document.getElementById('feedback').style.color = 'green';
+    } else {
+      document.getElementById('wrong-sound').play();
+      document.getElementById('feedback').innerHTML = 'לא נכון. התשובה הנכונה היא ' + q.options[q.answer] + '. ' + q.explanation;
+      document.getElementById('feedback').style.color = 'red';
+    }
+    currentQuestion++;
+    if (currentQuestion < currentQuestions.length) {
+      setTimeout(showQuestion, 4500); // עיכוב קל להצגת פידבק
+    } else {
+      document.getElementById('score').innerHTML = `ציון: ${score} מתוך ${currentQuestions.length}`;
+      document.getElementById('background-music').pause();
+    }
+  } else {
+    alert('בחר תשובה!');
+  }
+}
+</script>
+</body>
+</html>>

@@ -1,0 +1,311 @@
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>חידון - רקמה אנושית אחת</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="חידון אינטראקטיבי על פרשת נחשון וקסמן וניר פורז ז״ל.">
+            <link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
+                body {
+                    font-family: 'Open Sans', sans-serif;
+                    background: #f0f2f5;
+                    margin: 0;
+                    padding: 0;
+                    min-height: 100vh;
+                    color: #333;
+                    line-height: 1.6;
+                }
+                .fixed-header {
+                    background: #11305a;
+                    color: #fff;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    text-align: center;
+                    padding: 15px 0;
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    font-family: 'David Libre', serif;
+                }
+                .header-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0 20px;
+                    position: relative;
+                }
+                .logo {
+                    font-size: 1.5rem;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    color: #25FF00;
+                }
+                .logo::before {
+                    content: '';
+                    width: 30px;
+                    height: 30px;
+                    margin-left: 10px;
+                    background: url('media/thread-icon.svg') no-repeat center;
+                    background-size: contain;
+                }
+                .hamburger {
+                    position: absolute;
+                    right: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    width: 30px;
+                    height: 25px;
+                    cursor: pointer;
+                }
+                .hamburger span {
+                    background: #fff;
+                    height: 3px;
+                    border-radius: 2px;
+                }
+                .menu {
+                    display: none;
+                    position: fixed;
+                    top: 70px;
+                    right: 20px;
+                    background: #11305a;
+                    color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    z-index: 1000;
+                }
+                .menu.active {
+                    display: block;
+                }
+                .menu ul {
+                    list-style: none;
+                    padding: 10px 20px;
+                    margin: 0;
+                }
+                .menu li {
+                    margin: 10px 0;
+                }
+                .menu a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 1.1rem;
+                }
+                .menu a:hover {
+                    text-decoration: underline;
+                }
+                .close-btn {
+                    background: none;
+                    border: none;
+                    color: #fff;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
+                .container {
+                    max-width: 1200px;
+                    margin: 90px auto 80px;
+                    padding: 20px;
+                }
+                . .accordion {
+                    background: #fff;
+                    border-radius: 12px;
+                    padding: 20px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                }
+                .accordion-item {
+                    margin-bottom: 10px;
+                }
+                .accordion-title {
+                    background: #53C2FF;
+                    padding: 10px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    color: #11305a;
+                    width: 100%;
+                    text-align: right;
+                    border: none;
+                    transition: background 0.3s;
+                }
+                .accordion-title:hover {
+                    background: #00C199
+                }
+
+                .accordion-content {
+                    display: none;
+                    padding: 0px 10px 10px 10px;
+                    background: #f6f8fa;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    margin-top: 0;
+                }
+                .accordion-content.active {
+                    display: block;
+                }
+                .accordion-content.active {
+                    display: block;
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+
+                .video-container {
+                    margin: 10px 0;
+                    text-align: center;
+                }
+                .video-container iframe {
+                    max-width: 100%;
+                    height: 315px;
+                }
+                .quote {
+                    font-style: italic;
+                    color: #556B2F;
+                    margin: 10px 0;
+                }
+                .image-container {
+                    text-align: center;
+                    margin: 10px 0;
+                }
+                .image-container img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                }        min-height: 60vh;
+            none; color: #FFD700; cursor: pointer;none; color: #FFD700; cursor: pointer;none; color: #FFD700; cursor: pointer;
+            .next-page-link:hover { color: #D4AF37; }
+            .footer { background: #11305a; color: green; padding: 20px; text-align: center; }
+            .footer a { color: green; text-decoration: none; }
+            .footer a:hover { text-decoration: underline; }
+            .footer p { margin: 0; }
+            .language-select { margin-top: 10px; }
+            .next-page-link {
+              text-align: center;
+              margin-top: 20px;
+            }
+            .next-page-link a {
+              display: inline-block;
+              padding: 10px 20px;
+              background-color: #28a745;
+              color: white;
+              text-decoration: none;
+              border-radius: 5px;
+              transition: background-color 0.3s ease;
+            }
+            .next-page-link a:hover {
+              background-color: #218838;
+            }
+                   .container {
+                        margin-top: 70px;
+                        padding: 15px;
+                    }
+                    .hamburger {
+                        width: 25px;
+                        height: 20px;
+                    }
+                    .video-container iframe {
+                        height: 200px;
+                    }
+                    .accordion-title {
+                        font-size: 1rem;
+                        padding: 8px;
+                    }
+                    .accordion-content {
+                        font-size: 0.9rem;
+                    }
+                    .footer {
+                        font-size: 0.9rem;
+                    }
+                    .report-form in
+
+            .quiz-container { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+            .level-select { margin-bottom: 20px; }
+            .level-select button { padding: 10px 20px; background: #11305a; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin: 0 10px; }
+            .level-select button:hover { background: #0D2F5A; }
+            .question { font-size: 1.2rem; margin-bottom: 20px; }
+            .options { display: flex; flex-direction: column; }
+            .options label { margin: 10px 0; }
+            .feedback { margin-top: 20px; color: green; }
+            .score { margin-top: 20px; font-weight: bold; }
+
+            @media (max-width: 600px) { .fixed-header { font-size: 1.5rem; padding: 10px 0; } .container { margin-top: 70px; padding: 15px; } .hamburger { width: 25px; height: 20px; } .logo { font-size: 1.2rem; } .logo::before { width: 20px; height: 20px; } 
+
+          </style>
+        </head>
+        <body>
+          <div class="fixed-header">
+            <div class="header-content">
+              <div class="logo">רקמה אנושית אחת</div>
+              <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="menu" id="menu">
+              <button class="close-btn" onclick="toggleMenu()">✖</button>
+              <ul>
+                <li><a href="home.html">דף הבית</a></li>
+                <li><a href="kidnapping.html">חטיפה</a></li>
+                <li><a href="biographies.html">ביוגרפיות</a></li>
+                <li><a href="the-countdown.html">הספירה לאחור</a></li>
+                <li><a href="quiz.html">חידון</a></li>
+                <li><a href="media.html">מדיה</a></li>
+                <li><a href="gallery.html">גלריה</a></li>
+                <li><a href="memory-book.html">ספר הזיכרון</a></li>
+                <li><a href="visitors.html">דף מבקרים</a></li>
+              </ul>
+            </div>
+          </div>
+             <div class="container">
+        <h1 style="color: #11305a; text-align: center;">ספר זיכרון לנחשון ז"ל</h1>
+    <h3 style="color: #148100"> ספר זיכרון שהוציאו לאור חברים ל נחשון כשנה לאחר נפילתו</h3> </h3>
+</div>
+    </div>
+
+
+<iframe allowfullscreen="allowfullscreen" allow="clipboard-write" scrolling="no" class="fp-iframe" src="https://heyzine.com/flip-book/c395c1825f.html" style="border: 1px solid lightgray; width: 100%; height: 400px;"></iframe>
+
+    </div>
+
+        <div class="next-page-link">
+          <a href="visitors.html">לדף הבא: דף מבקרים</a>
+        </div>
+      </div>
+      <div class="footer">
+        <p>© 2025 רקמה אנושית אחת | <a href="mailto:tzachi1976@yahoo.com">צור קשר</a></p>
+         </div>
+<div>
+<p>
+בחר שפה:
+</p>
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({
+pageLanguage: 'he', includedLanguages: 'en,fr,ru'
+}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
+    }
+    function toggleAccordion(element) {
+      const content = element.nextElementSibling;
+      content.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

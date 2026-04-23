@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>רקמה אנושית אחת - סיפורם של נחשון וקסמן וניר פורז</title>
+  <meta name="description" content="סיפורם של נחשון וקסמן וניר פורז ז״ל. שער כניסה עם סרטון פתיחה." />
+
+  <link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">רקמה אנושית אחת</a>
+
+      <nav class="nav-links" aria-label="תפריט ראשי">
+        <a href="index.html">בית</a>
+        <a href="kidnapping.html">החטיפה</a>
+        <a href="rescue.html">החילוץ</a>
+        <a href="lessons.html">לקחים</a>
+        <a href="sources.html">מקורות</a>
+        <a href="quiz.html">חידון</a>
+        <a href="visitors.html">ספר אורחים</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="פתח תפריט" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="drawer" id="drawer" aria-label="תפריט נפתח">
+      <a href="index.html">בית</a>
+      <a href="kidnapping.html">החטיפה</a>
+      <a href="rescue.html">החילוץ</a>
+      <a href="lessons.html">לקחים</a>
+      <a href="sources.html">מקורות</a>
+      <a href="quiz.html">חידון</a>
+      <a href="visitors.html">ספר אורחים</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="splash-container">
+      <div class="header-content">
+        <h1 class="hero-quote">רקמה אנושית אחת</h1>
+        <p class="hero-sub-quote">סיפורם של נחשון וקסמן וניר פורז ז״ל</p>
+      </div>
+
+      <div class="image-container">
+        <img src="images/nachshon-nir.jpg" alt="תמונה של נחשון וקסמן וניר פורז">
+        <div class="play-button" id="playButton" role="button" tabindex="0" aria-label="הפעל סרטון פתיחה">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+
+      <div class="scroll-down-arrow" title="כניסה לאתר">
+        <a href="home.html" aria-label="כניסה רגילה לאתר">
+          <svg fill="#FFFFFF" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <div class="video-player-overlay" id="videoPlayerOverlay">
+    <video id="mainVideo" src="assets/intro-video.mp4" controls></video>
+    <button class="skip-button" id="skipVideo" type="button">דלג</button>
+  </div>
+
+  <script src="/menu.js"></script>
+  <script>
+    const goNext = () => window.location.href = './home.html';
+
+    const playButton = document.getElementById('playButton');
+    const overlay = document.getElementById('videoPlayerOverlay');
+    const video = document.getElementById('mainVideo');
+    const skip = document.getElementById('skipVideo');
+
+    function openVideo(){
+      overlay.classList.add('active');
+      video.play().catch((error) => {
+        console.error('שגיאה בניגון הסרטון:', error);
+        goNext();
+      });
+
+      if (video.requestFullscreen) video.requestFullscreen().catch(()=>{});
+    }
+
+    playButton.addEventListener('click', openVideo);
+    playButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openVideo(); }
+    });
+
+    video.addEventListener('ended', () => {
+      overlay.classList.remove('active');
+      goNext();
+    });
+
+    skip.addEventListener('click', () => {
+      video.pause();
+      overlay.classList.remove('active');
+      goNext();
+    });
+
+    video.addEventListener('error', (event) => {
+      console.error('שגיאה בטעינת הסרטון:', event);
+      goNext();
+    });
+  </script>
+</body>
+</html>

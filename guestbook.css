@@ -1,0 +1,5 @@
+
+
+.guestbook{display:grid;gap:12px}
+.entry{padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.entry .meta{font-size:13px;color:#b9c6d6}
