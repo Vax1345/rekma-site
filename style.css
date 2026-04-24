@@ -1,130 +1,186 @@
+
+
 :root{
-    --bg:#07131f;
-    --card:#0b1b2b;
-    --text:#e9eef5;
-    --muted:#b9c6d6;
-    --link:#7dc4ff;
-    --accent:#28a745;
-    --border:rgba(255,255,255,.12);
-  }
-  
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:'Open Sans',system-ui,Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.65;
-  }
-  
-  a{color:var(--link);text-decoration:none}
-  a:hover{text-decoration:underline}
-  
-  .container{max-width:1100px;margin:0 auto;padding:22px 16px 70px}
-  
-  /* Topbar */
-  .topbar{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(7,19,31,.92);
-    backdrop-fi
-    lter: blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .topbar-inner{
-    max-width:1100px;
-    margin:0 auto;
-    padding:12px 16px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-  }
-  .brand{
-    font-weight:700;
-    color:var(--text);
-    font-family:'David Libre',serif;
-  }
-  .nav-links{display:none;gap:14px;flex-wrap:wrap}
-  .nav-links a{color:var(--text);padding:8px 10px;border-radius:10px}
-  .nav-links a:hover{background:rgba(255,255,255,.06);text-decoration:none}
-  
-  /* Burger */
-  .burger{
-    width:42px;height:38px;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.04);
-    border-radius:12px;
-    cursor:pointer;
-    display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
-    gap:6px;
-  }
-  .burger span{width:18px;height:2px;background:var(--text);display:block;border-radius:2px}
-  
-  /* Drawer */
-  .drawer{
-    display:none;
-    padding:10px 16px 16px;
-    border-top:1px solid var(--border);
-  }
-  .drawer.open{display:grid;gap:8px}
-  .drawer a{
-    color:var(--text);
-    padding:10px 12px;
-    border-radius:12px;
-    background:rgba(255,255,255,.03);
-    border:1px solid var(--border);
-  }
-  .drawer a:hover{background:rgba(255,255,255,.06);text-decoration:none}
-  
-  @media (min-width: 900px){
-    .nav-links{display:flex}
-    .burger{display:none}
-    .drawer{display:none !important}
-  }
-  
-  /* Cards / UI */
-  .card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:16px;
-    margin:14px 0;
-  }
-  .small{color:var(--muted);font-size:13px}
-  h1,h2,h3{margin:0 0 10px;line-height:1.25}
-  h1{font-size:28px}
-  h2{font-size:20px}
-  
-  input,select,textarea{
-    width:100%;
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.04);
-    color:var(--text);
-    outline:none;
-  }
-  .btn{
-    padding:10px 14px;
-    border-radius:12px;
-    border:0;
-    background:var(--accent);
-    color:#fff;
-    cursor:pointer;
-  }
-  .btn.secondary{
-    background:transparent;
-    border:1px solid var(--border);
-    color:var(--text);
-  }
-  
-  .footer{
-    border-top:1px solid var(--border);
-    padding:16px;
-    color:var(--muted);
-    text-align:center;
-  }
+  --bg:#0b0f14;
+  --panel:#111827;
+  --text:#e5e7eb;
+  --muted:#a7b0bf;
+  --border:#243041;
+  --accent:#22c3a6;
+
+  --radius:14px;
+  --shadow:0 14px 40px rgba(0,0,0,.45);
+  --max:1100px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.container{max-width:var(--max); margin:0 auto; padding:0 16px}
+main{padding:96px 0 40px} /* מפנה מקום ל-header הדביק */
+
+.site-header{
+  position:fixed; inset:0 0 auto 0;
+  height:72px;
+  background:rgba(11,15,20,.82);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(36,48,65,.8);
+  z-index:1000;
+}
+.navbar{height:72px; display:flex; align-items:center; justify-content:space-between; gap:14px}
+.brand{display:flex; align-items:center; gap:10px; color:var(--text); text-decoration:none}
+.brand img{display:block}
+.brand-name{font-weight:800; letter-spacing:.2px}
+
+.nav-links{display:flex; gap:14px; align-items:center}
+.nav-links a{color:var(--text); opacity:.9}
+.nav-links a:hover{opacity:1}
+
+.menu-btn{
+  display:none;
+  background:transparent;
+  border:1px solid rgba(36,48,65,.9);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+.mobile-drawer{
+  display:none;
+  position:fixed; inset:72px 0 0 0;
+  background:rgba(11,15,20,.92);
+  backdrop-filter: blur(10px);
+  border-top:1px solid rgba(36,48,65,.8);
+}
+.mobile-drawer.open{display:block}
+.mobile-drawer nav{padding:16px}
+.mobile-drawer a{
+  display:block;
+  padding:14px 12px;
+  border:1px solid rgba(36,48,65,.7);
+  border-radius:14px;
+  margin-bottom:10px;
+  color:var(--text);
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+}
+
+/* Timeline accordion (details/summary) */
+.timeline{display:grid; gap:12px}
+.event{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:clip;
+}
+.event>summary{
+  list-style:none;
+  cursor:pointer;
+  display:grid;
+  grid-template-columns: 140px 1fr 24px;
+  gap:12px;
+  align-items:center;
+  padding:14px 14px;
+}
+.event>summary::-webkit-details-marker{display:none}
+.event .date{font-variant-numeric: tabular-nums; color:var(--muted); white-space:nowrap}
+.event .title{font-weight:800}
+.event .chev{transform: rotate(180deg); transition:.15s; opacity:.9}
+.event[open] .chev{transform: rotate(90deg)}
+.event .body{padding:0 14px 14px; color:var(--text); opacity:.95}
+
+/* Responsive */
+@media (max-width: 860px){
+  .nav-links{display:none}
+  .menu-btn{display:inline-flex}
+  .brand-name{display:none} /* בנייד: רק לוגו */
+  .event>summary{grid-template-columns: 1fr 24px}
+  .event .date{grid-column: 1 / -1}
+}
+```
+
+### B) `menu.js`
+צור `menu.js` בשורש:
+
+```js
+(() => {
+  const btn = document.querySelector('[data-menu-button]');
+  const drawer = document.querySelector('[data-mobile-drawer]');
+  if (!btn || !drawer) return;
+
+  const setOpen = (v) => {
+    drawer.classList.toggle('open', v);
+    btn.setAttribute('aria-expanded', String(v));
+  };
+
+  btn.addEventListener('click', () => setOpen(!drawer.classList.contains('open')));
+
+  drawer.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') setOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+})();
+```
+
+### C) Header אחיד להדבקה בכל דף
+בכל קובץ HTML (index/home/quiz וכו’) בתוך `<body>` למעלה:
+
+```html
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="דף הבית">
+      <img src="images/logo.svg" alt="רקמה" width="36" height="36">
+      <span class="brand-name">רקמה</span>
+    </a>
+
+    <nav class="nav-links" aria-label="תפריט ראשי">
+      <a href="home.html">בית</a>
+      <a href="week-october.html">שבוע באוקטובר</a>
+      <a href="nachshon.html">נחשון</a>
+      <a href="nir.html">ניר</a>
+      <a href="rescue.html">ניסיון החילוץ</a>
+      <a href="lessons.html">לקחים</a>
+      <a href="sources.html">מקורות</a>
+      <a href="quiz.html">חידון</a>
+      <a href="guestbook.html">ספר אורחים</a>
+    </nav>
+
+    <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="mobileDrawer">
+      תפריט
+    </button>
+  </div>
+
+  <div id="mobileDrawer" class="mobile-drawer" data-mobile-drawer>
+    <nav class="container" aria-label="תפריט נייד">
+      <a href="home.html">בית</a>
+      <a href="week-october.html">שבוע באוקטובר</a>
+      <a href="nachshon.html">נחשון</a>
+      <a href="nir.html">ניר</a>
+      <a href="rescue.html">ניסיון החילוץ</a>
+      <a href="lessons.html">לקחים</a>
+      <a href="sources.html">מקורות</a>
+      <a href="quiz.html">חידון</a>
+      <a href="guestbook.html">ספר אורחים</a>
+    </nav>
+  </div>
+</header>
