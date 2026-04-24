@@ -1,6 +1,32 @@
+
+
+ובתחתית ה־`body` בכל דף (לפני `</body>`):
+```html
+```
+
+וב־`<head>` של כל דף:
+```html
+```
+
+## 4) מה לעשות עכשיו (הכי חשוב)
+1) שים לוגו אמיתי:
+- או `images/logo.svg`
+- או תשנה ב‑HTML ל־`images/logo.png`
+
+2) תחליף בכל הדפים את `media/thread-icon.svg` לנתיב החדש ב־`images/...`.
+
+3) Commit+Push ל‑GitHub — Netlify יעדכן לבד.
+
+---
+
+כדי שלא ניתקע: איזה קובץ לוגו יש לך בפועל כרגע בתוך `images/`? (שם מדויק כולל סיומת: `logo.png`? `thread-icon.svg`? משהו אחר). אם תגיד לי את השם, אני אתן לך את שורת ה־`<img src="...">` המדויקת.
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl"
+
 <head>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>רקמה אנושית אחת — סרן ניר פורז ז"ל</title>
@@ -14,6 +40,8 @@
       --line:#24314a;
       --warm:#ffcf6a;
     }
+<script src="menu.js"></script>
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
@@ -200,4 +228,6 @@
 </footer>
 
 </body>
+<script src="menu.js"></script>
+
 </html>
